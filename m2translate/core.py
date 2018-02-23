@@ -174,6 +174,14 @@ class M2Translate:
         if dump_permanently:
             self.dump_locales()
 
+    def clear_store(self):
+        """
+        Removes all data from the store (all locales, all placeholders)
+        """
+        self.__connector.clear_store()
+        self.locales = dict()
+        self.__cur_locale = None
+
     def __check_cur_locale(self) -> None:
         """
         Checks that current locale is set (used in some methods) and is in locales list

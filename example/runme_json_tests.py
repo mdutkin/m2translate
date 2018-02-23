@@ -10,16 +10,6 @@ __author__ = 'Maxim Dutkin (max@dutkin.ru)'
 json_path = os.path.join('json_store')
 
 
-def clear_json_store(path):
-    for f in os.listdir(path):
-        file_path = os.path.join(path, f)
-        if os.path.isfile(file_path):
-            basename = os.path.split(file_path)[1]
-            l, ext = os.path.splitext(basename)
-            if ext == '.json':
-                os.remove(file_path)
-
-
 def count_json_locales(path):
     locales_cnt = 0
     for f in os.listdir(path):
@@ -32,11 +22,10 @@ def count_json_locales(path):
     return locales_cnt
 
 
-clear_json_store(json_path)
-
 # init translate module and json store connector
 connector = JSONConnector()
 tr = M2Translate(connector, not_found_val='N/A')
+tr.clear_store()
 
 
 class M2TranslateTests(unittest.TestCase):

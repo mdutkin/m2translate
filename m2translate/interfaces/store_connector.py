@@ -29,3 +29,9 @@ class StoreConnector:
         :param locale: locale name
         """
         raise NotImplementedError()
+
+    def clear_store(self):
+        """
+        Removes all data from the store (all locales, all placeholders)
+        """
+        raise NotImplementedError()

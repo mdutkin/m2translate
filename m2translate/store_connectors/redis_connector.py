@@ -31,9 +31,12 @@ class RedisConnector(StoreConnector):
     def save_locale(self, locale: str, data: dict):
         self.__r.sadd(self.__locale_tbl(locale), locale)
         for k, v in data.items():
-            self.__r.lset(self.__ph_tbl(locale, k), 0, v[0])
-            self.__r.lset(self.__ph_tbl(locale, k), 1, v[1])
-            self.__r.lset(self.__ph_tbl(locale, k), 2, v[2])
+            ph_key = self.__ph_tbl(locale, k)
+            # check if ph already exists
+            if self.__r.llen(ph_key):
+                # clear list
+                self.__r.delete(ph_key)
+            self.__r.rpush(ph_key, v[0], v[1], v[2])
 
     def remove_locale(self, locale):
         self.__r.srem(self.__locale_tbl(locale), locale)
@@ -46,7 +49,13 @@ class RedisConnector(StoreConnector):
 
     def locales(self) -> list:
         locales = self.__r.keys(self.__locale_tbl('*'))
+        locales = [l.split(':')[1] for l in locales]
         return locales
+
+    def clear_store(self):
+        for l in self.locales():
+            self.__r.delete(self.__locale_tbl(l))
+            self.__r.delete(self.__ph_tbl(l, '*'))
 
     def __locale_tbl(self, locale: str):
         return self.__r_scheme['locales'] % locale

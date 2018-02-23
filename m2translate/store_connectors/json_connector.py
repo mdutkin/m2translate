@@ -45,5 +45,15 @@ class JSONConnector(StoreConnector):
                     locales.append(l)
         return locales
 
+    def clear_store(self):
+        json_path = os.path.join(self.store_path)
+        for f in os.listdir(json_path):
+            file_path = os.path.join(json_path, f)
+            if os.path.isfile(file_path):
+                basename = os.path.split(file_path)[1]
+                l, ext = os.path.splitext(basename)
+                if ext == '.json':
+                    os.remove(file_path)
+
     def __locale_path(self, locale: str):
         return os.path.join(self.store_path, '%s.json' % locale)
