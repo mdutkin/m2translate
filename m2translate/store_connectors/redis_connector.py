@@ -44,7 +44,8 @@ class RedisConnector(StoreConnector):
             self.__r.delete(key)
 
     def load_locale(self, locale):
-        data = {key: self.__r.lrange(key, 0, -1) for key in self.__r.keys(self.__ph_tbl(locale, '*'))}
+        data = {key.split(':')[1]: self.__r.lrange(key, 0, -1)
+                for key in self.__r.keys(self.__ph_tbl(locale, '*'))}
         return data
 
     def locales(self) -> list:
@@ -55,7 +56,8 @@ class RedisConnector(StoreConnector):
     def clear_store(self):
         for l in self.locales():
             self.__r.delete(self.__locale_tbl(l))
-            self.__r.delete(self.__ph_tbl(l, '*'))
+            for k in self.__r.keys(self.__ph_tbl(l, '*')):
+                self.__r.delete(k)
 
     def __locale_tbl(self, locale: str):
         return self.__r_scheme['locales'] % locale
