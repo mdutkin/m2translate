@@ -1,6 +1,12 @@
 # M2Translate localization / translation package
 
+### Status
+
+[![Build Status](https://travis-ci.org/mdutkin/m2translate.svg?branch=master)](https://travis-ci.org/mdutkin/m2translate)
+
+
 ### About
+
 
 M2Translate is a package for localization / translation everything you want in your Python projects. 
 You can store all your translations in JSON files or Redis. Once initialised, it sits in a memory until 
