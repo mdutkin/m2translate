@@ -1,6 +1,4 @@
 from m2translate.interfaces import StoreConnector
-import os
-import json
 import redis
 
 __author__ = 'Maxim Dutkin (max@dutkin.ru)'
