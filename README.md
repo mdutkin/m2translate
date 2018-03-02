@@ -3,19 +3,19 @@
 ### About
 
 M2Translate is a package for localization / translation everything you want in your Python projects. 
-You can store all your translations in JSON files or in Redis. Once initialised, it sits in a memory until 
+You can store all your translations in JSON files or Redis. Once initialised, it sits in a memory until 
 you save it to store.
 
 The main concept is that you have a bunch of locales, and each of them has it's own set of placeholders. 
-Placeholders are synchronised while dumping to store. Each placeholder has three values: none, single, 
-multi. When you put placeholder somewhere and try to get it's value - you simply get `none` value. But if you 
+Placeholders are synchronised while dumping to store. Each placeholder has three values: `none`, `single`, 
+`multi`. When you put placeholder somewhere and try to get it's value - you simply get `none` value. But if you 
 specify a numeric value - you get placeholder value depending on it (`none` for `0`, `single` for `1` and `multi` 
 for `> 1`).
 
 
 ### The list of main features:
 
-* **supports JSON store and Redis store. you can add support of any store you want by implementing 
+* **supports JSON store and Redis store. You can add support of any store you want by implementing 
 `StoreConnector` interface**
 
 * **as fast as your RAM**
