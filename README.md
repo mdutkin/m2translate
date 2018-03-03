@@ -31,6 +31,15 @@ for `> 1`).
 * **have nice docs**
 
 
+## Installation
+
+install package in normal way via pip:
+
+```bash
+pip install m2translate
+```
+
+
 ### How-to
 
 Init your connector:
